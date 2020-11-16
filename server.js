@@ -23,7 +23,7 @@ const printer = {
         let isConnected = await printer.isPrinterConnected();
         console.log("Printer connected:", isConnected);
         printer.alignCenter();
-        await printer.printImage('./public/assets/logo_ahass.png');
+        await printer.printImage(__dirname +'/public/assets/logo_ahass.png');
 
         printer.drawLine();
         printer.println(compro['name']);
@@ -87,7 +87,7 @@ const printer = {
         console.log(motor);
         let invoiceNotes = ctx.request.body.invoiceNotes;
         printer.alignCenter();
-        await printer.printImage('./public/assets/logo_ahass.png');
+        await printer.printImage(__dirname +'/public/assets/logo_ahass.png');
 
         printer.drawLine();
         printer.println(compro['name']);
