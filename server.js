@@ -10,7 +10,10 @@ let moment = require('moment');
 moment.locale('id');
 let Terbilang = require('terbilang');
 app.use(cors())
-app.use(bodyParser())
+app.use(bodyParser());
+
+// USB INTERFACE
+let USB_INTERFACE = '/dev/ttys008';
 const printer = {
     printAntrian: async (ctx) => {
         const selectedPrinter = ctx.request.body.printer;
@@ -23,7 +26,7 @@ const printer = {
         let isConnected = await printer.isPrinterConnected();
         console.log("Printer connected:", isConnected);
         printer.alignCenter();
-        await printer.printImage('./public/assets/logo_ahass.png');
+        await printer.printImage(__dirname +'/public/assets/logo_ahass.png');
 
         printer.drawLine();
         printer.println(compro['name']);
@@ -74,7 +77,7 @@ const printer = {
         const compro = ctx.request.body.compro;
         let printer = new ThermalPrinter({
             type: PrinterTypes.EPSON,
-            interface: `tcp://${selectedPrinter.ip}:${selectedPrinter.port}`
+            interface: USB_INTERFACE
         });
         let isConnected = await printer.isPrinterConnected();
         let workorder = ctx.request.body;
@@ -87,7 +90,7 @@ const printer = {
         console.log(motor);
         let invoiceNotes = ctx.request.body.invoiceNotes;
         printer.alignCenter();
-        await printer.printImage('./public/assets/logo_ahass.png');
+        await printer.printImage(__dirname +'/public/assets/logo_ahass.png');
 
         printer.drawLine();
         printer.println(compro['name']);
